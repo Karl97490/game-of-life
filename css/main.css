@@ -1,0 +1,47 @@
+body {
+    background-color: antiquewhite;
+}
+
+body,
+h1 {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    margin : 10px 0;
+}
+
+
+.grid-container {
+    margin: auto;
+    display: grid;
+
+    grid-template-columns: repeat(60, 1fr);
+    grid-template-rows: repeat(60, 1fr);
+    justify-content: center;
+
+    width : 670px;
+    height : 670px;
+
+    border: 1px solid ;
+}
+
+.cell {
+    border: 1px solid gray;
+    
+}
+
+.cell.dead {
+    background-color: beige;
+}
+
+
+.cell.alive {
+    background-color: brown;
+}
+
+.cell:hover {
+    background-color: brown;
+}
