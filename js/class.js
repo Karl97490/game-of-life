@@ -1,6 +1,7 @@
 class Cell {
-    constructor() {
-        this.cellElm = null;
+    constructor(positionX, positionY) {
+        this.positionX = positionX; // Store the horizontal position of the cell instance 
+        this.positionY = positionY; // Store the vertical position of the cell instance
 
         this.updateUI()
     }

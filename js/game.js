@@ -7,7 +7,7 @@ let colIndex = 0 // Column index of the cellMatrix 2D array
 
 // Create a functional clickable 2D grid with dead and alive cell
 for (let i = 0; i < 3600; i++) {  // Create a grid 60x60 (3600 cases)
-    const cellObj = new Cell() // Create a new instance of the Cell() class
+    const cellObj = new Cell(rowIndex, colIndex) // Create a new instance of the Cell() class
 
     rowMatrix.push(cellObj) // Push the cell instance into the matrix row array
 
