@@ -5,10 +5,10 @@ class Cell {
         this.state = 0; // Represents the state of a cell (alive or dead)
         this.neighbors = []; // Store the cell’s neighbors
 
-        this.updateUI()
+        this.createCellElm() // Create a cell element for each cell instance in the grid
     }
 
-    updateUI() {
+    createCellElm() {
         this.newCell = document.createElement("div") // Create a div element for each case (cell) of the grid
         const gridContainer = document.querySelector(".grid-container")  // Get the grid container element from the DOM
 
@@ -16,21 +16,23 @@ class Cell {
         gridContainer.appendChild(this.newCell) // Append each element to the grid container
 
         this.newCell.addEventListener("click", () => { // Create an event listener for each div element
-            this.newCell.classList.toggle("alive") // When a case (cell) is clicked, toggle the 'alive' class
+            this.updateUI() // Invoke the method updateUI()
 
             // Check the state of the cell
             this.state = this.state ? 0 : 1 // If alive, switch its state to 0 (dead), if dead switch it to 1 (alive)
         })
     }
 
-    setNeighbors() {
+    updateUI() {
+        this.newCell.classList.toggle("alive") // Toggle the 'alive' class
+    }
 
+    setNeighbors() {
         // Differentiate the cells based on their position in the grid
 
         // For cells in the corners :
         // Top left
         if (this.positionX === 0 && this.positionY === 0) {
-            console.log("I'm from the top-left corner...")
             // Push the neighbors to the neighbors array
             if (!this.neighbors.length) {  // Check if array is empty
                 this.neighbors.push(
@@ -42,7 +44,6 @@ class Cell {
         }
         // Bottom left
         else if (this.positionX === 59 && this.positionY === 0) {
-            console.log("I'm from the bottom-left corner...")
             if (!this.neighbors.length) {  // Check if array is empty
                 this.neighbors.push(
                     cellMatrix[this.positionX][this.positionY + 1], // Right
@@ -53,7 +54,6 @@ class Cell {
         }
         // Top right
         else if (this.positionX === 0 && this.positionY === 59) {
-            console.log("I'm from the top-right corner...")
             if (!this.neighbors.length) {  // Check if array is empty
                 this.neighbors.push(
                     cellMatrix[this.positionX][this.positionY - 1], // Left
@@ -64,7 +64,6 @@ class Cell {
         }
         // Bottom right
         else if (this.positionX === 59 && this.positionY === 59) {
-            console.log("I'm from the bottom-right corner...")
             if (!this.neighbors.length) {  // Check if array is empty
                 this.neighbors.push(
                     cellMatrix[this.positionX][this.positionY - 1], // Left
@@ -77,7 +76,6 @@ class Cell {
         // For cells on the borders (excluding the corners) :
         // Top border
         else if (this.positionX === 0 && this.positionY >= 1 && this.positionY <= 58) {
-            console.log("I'm from the top border...")
             if (!this.neighbors.length) {  // Check if array is empty
                 this.neighbors.push(
                     cellMatrix[this.positionX][this.positionY - 1], // Left
@@ -90,7 +88,6 @@ class Cell {
         }
         // Right border
         else if (this.positionX >= 1 && this.positionX <= 58 && this.positionY === 59) {
-            console.log("I'm from the right border...")
             if (!this.neighbors.length) {  // Check if array is empty
                 this.neighbors.push(
                     cellMatrix[this.positionX - 1][this.positionY], // Above
@@ -103,7 +100,6 @@ class Cell {
         }
         // Bottom border
         else if (this.positionX === 59 && this.positionY >= 1 && this.positionY <= 58) {
-            console.log("I'm from the bottom border...")
             if (!this.neighbors.length) {  // Check if array is empty
                 this.neighbors.push(
                     cellMatrix[this.positionX][this.positionY - 1], // Left
@@ -141,7 +137,5 @@ class Cell {
                 )
             }
         }
-
     }
-
 }

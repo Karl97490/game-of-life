@@ -22,3 +22,8 @@ for (let i = 0; i < 3600; i++) {  // Create a grid 60x60 (3600 cases)
         colIndex++; // Otherwise, increment the column index until it reaches 59 to complete a row
     }
 }
+
+// Invoke the setNeighbor() method for each cells of the grid
+cellMatrix.forEach((rows) => {
+    rows.map((cell) => cell.setNeighbors())
+})
