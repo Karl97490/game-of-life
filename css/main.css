@@ -10,9 +10,8 @@ h1 {
 
 h1 {
     text-align: center;
-    margin : 10px 0;
+    margin: 10px 0;
 }
-
 
 .grid-container {
     margin: auto;
@@ -22,15 +21,15 @@ h1 {
     grid-template-rows: repeat(60, 1fr);
     justify-content: center;
 
-    width : 670px;
-    height : 670px;
+    width: 670px;
+    height: 670px;
 
-    border: 1px solid ;
+    border: 1px solid;
 }
 
 .cell {
     border: 1px solid gray;
-    
+
 }
 
 .cell.dead {

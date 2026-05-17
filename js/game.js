@@ -1,22 +1,24 @@
-console.log("Hello user!")
 
-const gridContainer = document.querySelector(".grid-container")
-
-
-const cellMatrix = []
-let rowMatrix = []
-let rowIndex = 0 // Index row
-let colIndex = 0 // Calculate the index col
+const cellMatrix = [] // Create a 2D array that represents the grid
+let rowMatrix = [] // Array representing a row inside the cellMatrix array
+let rowIndex = 0 // Row index of the cellMatrix 2D array
+let colIndex = 0 // Column index of the cellMatrix 2D array
 
 
-// Create a functionnal 2D Grid clickable with dead or alive cells 
+// Create a functional clickable 2D grid with dead and alive cell
+for (let i = 0; i < 3600; i++) {  // Create a grid 60x60 (3600 cases)
+    const cellObj = new Cell() // Create a new instance of the Cell() class
 
+    rowMatrix.push(cellObj) // Push the cell instance into the matrix row array
 
-for(let i = 0; i < 3600; i++){  // Create a grid 20x20
-    const newCell = document.createElement("div") // create a cell for each case
-    newCell.classList.add("cell", "dead") // Add the class cell and dead when they born
-    gridContainer.appendChild(newCell) 
-    newCell.addEventListener("click", () => { // add an eventlistener for each cell to be clickable
-        newCell.classList.toggle("alive") // user can now activate or desactivate a cell by toggle class
-    })
+    if (colIndex >= 59) { // Check when a row is complete
+
+        cellMatrix.push(rowMatrix) // Push the complete row to the matrix
+        rowMatrix = [] // Reset the rowArray - start a new row
+        rowIndex++;// Increment the rowIndex 
+        colIndex = 0 // Reset the column index
+
+    } else {
+        colIndex++; // Otherwise, increment the column index until it reaches 59 to complete a row
+    }
 }
