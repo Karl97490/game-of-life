@@ -42,3 +42,29 @@ evolveButton.addEventListener("click", () => {
     })
 })
 
+
+// Get the variables for the buttons and for the setInterval
+const startButton = document.querySelector(".start-button")
+const pauseButton = document.querySelector(".pause-button")
+let simultInterval = null;
+
+// Add an eventlistener to the start button 
+// When clicked, start to generate automate generation
+startButton.addEventListener("click", () => {
+    // generate interval to automatisate generations
+    simultInterval = setInterval(() => {
+        console.log("Preparing to next generation...")
+        cellMatrix.forEach((rows) => {
+            rows.map((cell) => cell.evolve()) // Make the cells evolve
+        })
+        cellMatrix.forEach((rows) => {
+            rows.map((cell) => cell.changeState()) // Apply their changes afterward
+        })
+    }, 500)
+})
+
+// Add an eventlistener to the pause button 
+// When clicked, pause the simulation
+pauseButton.addEventListener("click", () => {
+    clearInterval(simultInterval)
+})
