@@ -44,3 +44,17 @@ h1 {
 .cell:hover {
     background-color: brown;
 }
+
+.next-button {
+    color: black;
+    border: 1px solid;
+    border-radius: 5px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 160px;
+    position: absolute;
+    top: 400px;
+    left: 15%;
+}

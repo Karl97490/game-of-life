@@ -3,6 +3,7 @@ class Cell {
         this.positionX = positionX; // Store the horizontal position of the cell instance 
         this.positionY = positionY; // Store the vertical position of the cell instance
         this.state = 0; // Represents the state of a cell (alive or dead)
+        this.futureState = 0; // Represents the future state of the cell after evolution
         this.neighbors = []; // Store the cell’s neighbors
 
         this.createCellElm() // Create a cell element for each cell instance in the grid
@@ -16,15 +17,52 @@ class Cell {
         gridContainer.appendChild(this.newCell) // Append each element to the grid container
 
         this.newCell.addEventListener("click", () => { // Create an event listener for each div element
-            this.updateUI() // Invoke the method updateUI()
-
             // Check the state of the cell
-            this.state = this.state ? 0 : 1 // If alive, switch its state to 0 (dead), if dead switch it to 1 (alive)
+            this.futureState = this.state ? 0 : 1 // If alive, switch its state to 0 (dead), if dead switch it to 1 (alive)
+
+            this.changeState() // change its current state to its future state
         })
     }
 
+
     updateUI() {
-        this.newCell.classList.toggle("alive") // Toggle the 'alive' class
+        // Get the current state of the cell
+        if (this.state) {
+            this.newCell.classList.add("alive") // add the class 'alive'
+
+        } else {
+            this.newCell.classList.remove("alive") // remove the class 'alive'
+        }
+    }
+
+    changeState() {
+        this.state = this.futureState // Evolve to its future state
+        this.updateUI() // Update UI after cells evolved
+    }
+
+    evolve() {
+        /* For each cell :
+        - A live cell with 2 or 3 neighbors survives.
+        - A dead cell with exactly 3 neighbors becomes alive.
+        - All other live cells die, and other dead cells stay dead. */
+
+        // Represents the number of living neighbors
+        const neighborsState = this.neighbors.reduce((value, neighbor) => value + neighbor.state, 0) // Sum of the state values of neighboring cells
+
+        // Check the state of the cell (dead or alive)
+        if (this.state) { // For alive cell, 2 rules : can die or survive
+            // Survive rule
+            if (neighborsState === 2 || neighborsState === 3) {
+                this.futureState = 1
+            } else { // Die rule
+                this.futureState = 0
+            }
+        }
+        else { // For dead cell, 1 rule : can become alive
+            if (neighborsState === 3) {
+                this.futureState = 1 // become alive
+            }
+        }
     }
 
     setNeighbors() {

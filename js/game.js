@@ -27,3 +27,18 @@ for (let i = 0; i < 3600; i++) {  // Create a grid 60x60 (3600 cases)
 cellMatrix.forEach((rows) => {
     rows.map((cell) => cell.setNeighbors())
 })
+
+
+// Add an eventlistener to the next button 
+const evolveButton = document.querySelector(".next-button")
+
+// When clicked, apply the evolve() and changeState() methods to every cel
+evolveButton.addEventListener("click", () => {
+    cellMatrix.forEach((rows) => {
+        rows.map((cell) => cell.evolve()) // Make the cells evolve
+    })
+    cellMatrix.forEach((rows) => {
+        rows.map((cell) => cell.changeState()) // Apply their changes afterward
+    })
+})
+
