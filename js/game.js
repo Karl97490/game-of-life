@@ -28,32 +28,24 @@ cellMatrix.forEach((rows) => {
     rows.map((cell) => cell.setNeighbors())
 })
 
-
-// Add an eventlistener to the next button 
-const evolveButton = document.querySelector(".next-button")
-
-// When clicked, apply the evolve() and changeState() methods to every cel
-evolveButton.addEventListener("click", () => {
-    cellMatrix.forEach((rows) => {
-        rows.map((cell) => cell.evolve()) // Make the cells evolve
-    })
-    cellMatrix.forEach((rows) => {
-        rows.map((cell) => cell.changeState()) // Apply their changes afterward
-    })
-})
-
-
-// Get the variables for the buttons and for the setInterval
+// Get the variables for buttons and the setInterval()
 const startButton = document.querySelector(".start-button")
 const pauseButton = document.querySelector(".pause-button")
+const refreshButton = document.querySelector(".refresh-button")
 let simultInterval = null;
 
+
 // Add an eventlistener to the start button 
-// When clicked, start to generate automate generation
+// When clicked, start the automatic generation process
 startButton.addEventListener("click", () => {
-    // generate interval to automatisate generations
+    // Create an interval to automate the generations
     simultInterval = setInterval(() => {
-        console.log("Preparing to next generation...")
+        // Check whether at least one cell is alive on the grid
+        const hasActiveCell = Boolean(cellMatrix.flat().reduce((value, cell) => value + cell.state, 0))
+        if (!hasActiveCell) {
+            console.log("No cells alive")
+            clearInterval(simultInterval); // If there are no active cells on the grid, clear the setInterval()
+        }
         cellMatrix.forEach((rows) => {
             rows.map((cell) => cell.evolve()) // Make the cells evolve
         })
@@ -63,8 +55,15 @@ startButton.addEventListener("click", () => {
     }, 500)
 })
 
+
 // Add an eventlistener to the pause button 
 // When clicked, pause the simulation
 pauseButton.addEventListener("click", () => {
     clearInterval(simultInterval)
+})
+
+// Add an eventlistener to the refresh button
+// When clicked, refresh the board
+refreshButton.addEventListener("click", () => {
+    window.location.reload()
 })
