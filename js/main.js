@@ -6,14 +6,19 @@ const cellMatrix = [] // Create a 2D array that represents the grid
 const startButton = document.querySelector(".start-button")
 const pauseButton = document.querySelector(".pause-button")
 const refreshButton = document.querySelector(".refresh-button")
+const counterElm = document.getElementById("counter")
 let isSimulationOn = false; // Represents whether the simulation is on or off
 let simultInterval = null; // Declare the variable used for setInterval()
+let counter = 0; // Counts the number of generations
 
 
 /******************** INITIALISATION ********************/
 
 // Invoke the createGrid() method
 createGrid();
+
+// Initialise the counter to 0
+updateCounter(counter)
 
 // Disabled the buttons by default
 startButton.disabled = true
@@ -33,7 +38,6 @@ cellMatrix.forEach((rows) => {
 startButton.addEventListener("click", () => {
     startSimulation();
 })
-
 
 // Add an eventlistener to the pause button 
 // When clicked, pause the simulation
@@ -61,6 +65,12 @@ function createGrid() {
         const cellObj = new Cell(rowIndex, colIndex) // Create a new instance of the Cell() class
 
         cellObj.newCell.addEventListener("click", () => { // Create an event listener for each div element
+            // Reset counter when no cells are active
+            if (!isCellsActive()) {
+                counter = 0;
+                updateCounter(counter)
+            }
+
             // Check the state of the cell
             cellObj.futureState = cellObj.state ? 0 : 1 // If alive, switch its state to 0 (dead), if dead switch it to 1 (alive)
 
@@ -117,6 +127,10 @@ function startSimulation() {
             rows.map((cell) => cell.changeState()) // Apply their changes afterward
         })
 
+        // Increment and update the counter during each loop iteration
+        counter++;
+        updateCounter(counter);
+
     }, 100) // Generate a new generation every 100 ms
 }
 
@@ -135,4 +149,8 @@ function isCellsActive() {
     // Check whether at least one cell is alive on the grid
     const hasActiveCell = Boolean(cellMatrix.flat().reduce((value, cell) => value + cell.state, 0))
     return hasActiveCell; // Return the boolean variable
+}
+
+function updateCounter(counter) {
+    counterElm.innerText = counter;
 }
