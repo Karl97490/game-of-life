@@ -2,39 +2,59 @@ body {
     background-color: #333;
 }
 
+
 body,
-h1 {
+h1,
+p,
+input,
+button {
     margin: 0;
     padding: 0;
-    color: white
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: lighter;
 }
 
 h1 {
     text-align: center;
     margin: 10px 0;
+    font-size: 2.5em;
+    font-weight: 700;
+    text-transform: uppercase;
+    position: absolute;
+    top: 130px;
+    left: 70px;
 }
 
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100vh;
+}
+
+
 .grid-container {
-    margin: auto;
     display: grid;
 
     grid-template-columns: repeat(60, 1fr);
     grid-template-rows: repeat(60, 1fr);
-    justify-content: center;
 
-    width: 670px;
-    height: 670px;
+    width: 720px;
+    height: 720px;
 
-    outline: 5px solid #333;
+    order: 2;
 }
 
 .cell {
-    outline: 1px solid #333;
+    outline: 1px solid gray;
 
 }
 
 .cell.dead {
-    background-color: rgba(255, 255, 255, 0.616);
+    background-color: white;
 }
 
 
@@ -46,22 +66,34 @@ h1 {
     background-color: #333;
 }
 
-.button-container {
+.containers {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    position: absolute;
-    top: 300px;
-    left: 15%;
 }
 
-.button {
-    color: black;
+.buttons {
+    gap: 15px;
+    order: 1;
+    align-items: center;
+}
+
+.buttons button {
+    color: white;
     border: 1px solid;
+    background-color: #333;
     border-radius: 5px;
     text-transform: uppercase;
     padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
     width: 160px;
+}
+
+.buttons button:disabled {
+    background-color: rgba(255, 255, 255, 0.181);
+}
+
+.controls {
+    order: 3;
+    gap: 10px;
 }

@@ -20,7 +20,7 @@ startButton.disabled = true
 pauseButton.disabled = true
 refreshButton.disabled = true
 
-// Invoke the setNeighbor() method for each cells of the grid
+// Invoke the setNeighbors() method for each cells of the grid
 cellMatrix.forEach((rows) => {
     rows.map((cell) => cell.setNeighbors())
 })

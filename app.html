@@ -10,22 +10,30 @@
 
 <body>
 
-    <h1>Game Of Life</h1>
-    <div class="grid-container">
+    <h1 class="title">Game Of Life</h1>
 
-        <!-- <div class="cell alive dead"></div> -->
+    <div class="flex-container">
+
+        <div class="grid-container">
+            <!-- <div class="cell alive dead"></div> -->
+        </div>
+
+        <div class="buttons containers">
+
+            <!-- Start button to launch simulation -->
+            <button class="start-button">Start</button>
+            <!-- Pause the simulation -->
+            <button class="pause-button">Pause</button>
+            <!-- Refresh the board -->
+            <button class="refresh-button">Refresh</button>
+        </div>
+
+        <div class="controls containers">
+            <intput id="speed">Speed control</intput>
+            <p id="counter">Counter</p>
+        </div>
 
     </div>
-
-    <div class="button-container">
-        <!-- Start button to launch simulation -->
-        <button class="start-button button">Start</button>
-        <!-- Pause the simulation -->
-        <button class="pause-button button">Pause</button>
-        <!-- Refresh the board -->
-        <button class="refresh-button button">Refresh</button>
-    </div>
-
 
     <script src="./js/Cell.js"></script>
     <script src="./js/main.js"></script>
