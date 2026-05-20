@@ -7,6 +7,8 @@ const pauseButton = document.querySelector(".pause-button")
 const refreshButton = document.querySelector(".refresh-button")
 const counterElm = document.getElementById("counter")
 const speedElm = document.getElementById("speed")
+const patternsBtn = document.querySelectorAll(".patterns button")
+
 const totalCols = 60;
 const totalRows = 60;
 const totalCells = totalRows * totalCols; // For a grid 60x60 (3600 cells)
@@ -15,6 +17,8 @@ let timeout = null;
 let counter = 0; // Counts the number of generations
 
 /******************** INITIALISATION ********************/
+
+
 
 // Invoke the createGrid() method
 createGrid();
@@ -48,6 +52,4 @@ pauseButton.addEventListener("click", () => {
 refreshButton.addEventListener("click", () => {
     refreshBoard();
 })
-
-
 

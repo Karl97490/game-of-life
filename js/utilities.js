@@ -11,6 +11,7 @@ function createGrid() {
         const cellObj = new Cell(rowIndex, colIndex)
 
         cellObj.newCell.addEventListener("click", () => { // Create an event listener for each cell element
+
             // Reset counter when no cells are active
             if (!isCellsActive()) {
                 counter = 0;
@@ -54,6 +55,7 @@ function startSimulation() {
     const speedValue = speedElm.value // Update the speedvalue every iteration
 
     if (!isCellsActive()) {
+        isSimulationOn = false;
         startButton.disabled = true;
         pauseButton.disabled = true;
         refreshButton.disabled = true;
@@ -79,7 +81,7 @@ function startSimulation() {
     timeout = setTimeout(() => {
         startSimulation()
     }, speedValue)
-
+ 
 }
 
 function pauseSimulation() {
@@ -101,4 +103,5 @@ function isCellsActive() {
 
 function updateCounter(counter) {
     counterElm.innerText = `Generations : ${counter}`;
-}   
+}
+
