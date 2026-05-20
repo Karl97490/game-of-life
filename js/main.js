@@ -1,16 +1,18 @@
 
 /******************** VARIABLES ********************/
 
-// Declare and initialise all the variables (buttons, array, booleans...)
-const cellMatrix = [] // Create a 2D array that represents the grid
+const cellsArr = [] // Create a 2D array that represents the grid
 const startButton = document.querySelector(".start-button")
 const pauseButton = document.querySelector(".pause-button")
 const refreshButton = document.querySelector(".refresh-button")
 const counterElm = document.getElementById("counter")
-let isSimulationOn = false; // Represents whether the simulation is on or off
-let simultInterval = null; // Declare the variable used for setInterval()
+const speedElm = document.getElementById("speed")
+const totalCols = 60;
+const totalRows = 60;
+const totalCells = totalRows * totalCols; // For a grid 60x60 (3600 cells)
+let isSimulationOn = false;
+let timeout = null;
 let counter = 0; // Counts the number of generations
-
 
 /******************** INITIALISATION ********************/
 
@@ -26,45 +28,39 @@ pauseButton.disabled = true
 refreshButton.disabled = true
 
 // Invoke the setNeighbors() method for each cells of the grid
-cellMatrix.forEach((rows) => {
+cellsArr.forEach((rows) => {
     rows.map((cell) => cell.setNeighbors())
 })
 
-
 /******************** EVENT LISTENERS ********************/
 
-// Add an eventlistener to the start button 
 // When clicked, start the automatic generation process
 startButton.addEventListener("click", () => {
     startSimulation();
 })
 
-// Add an eventlistener to the pause button 
 // When clicked, pause the simulation
 pauseButton.addEventListener("click", () => {
     pauseSimulation();
 })
 
-// Add an eventlistener to the refresh button
 // When clicked, refresh the board
 refreshButton.addEventListener("click", () => {
     refreshBoard();
 })
 
-
 /******************** FUNCTIONS ********************/
 
-// Create functions 
 function createGrid() {
-    let rowMatrix = [] // Array representing a row inside the cellMatrix array
-    let rowIndex = 0 // Row index of the cellMatrix 2D array
-    let colIndex = 0 // Column index of the cellMatrix 2D array
+    let rowArr = []
+    let rowIndex = 0
+    let colIndex = 0
 
     // Create a functional clickable 2D grid with dead and alive cell
-    for (let i = 0; i < 3600; i++) {  // Create a grid 60x60 (3600 cases)
-        const cellObj = new Cell(rowIndex, colIndex) // Create a new instance of the Cell() class
+    for (let i = 0; i < totalCells; i++) {
+        const cellObj = new Cell(rowIndex, colIndex)
 
-        cellObj.newCell.addEventListener("click", () => { // Create an event listener for each div element
+        cellObj.newCell.addEventListener("click", () => { // Create an event listener for each cell element
             // Reset counter when no cells are active
             if (!isCellsActive()) {
                 counter = 0;
@@ -76,7 +72,7 @@ function createGrid() {
 
             cellObj.changeState() // Change its current state to its future state
 
-            // Toggle the start and refresh buttons when a cell is activated or deactivated
+            // Toggle the start and refresh buttons when a cell is activated or desactivated
             if (isCellsActive() && isSimulationOn) {
                 refreshButton.disabled = false;
             } else if (isCellsActive() && !isSimulationOn) {
@@ -88,12 +84,12 @@ function createGrid() {
             }
         })
 
-        rowMatrix.push(cellObj) // Push the cell instance into the matrix row array
+        rowArr.push(cellObj)
 
-        if (colIndex >= 59) { // Check when a row is complete
+        if (colIndex >= totalCols - 1) { // Check when a row is complete
 
-            cellMatrix.push(rowMatrix) // Push the complete row to the matrix
-            rowMatrix = [] // Reset the rowArray - start a new row
+            cellsArr.push(rowArr) // Push the complete row to the matrix
+            rowArr = [] // Reset the rowArray - start a new row
             rowIndex++;// Increment the rowIndex 
             colIndex = 0 // Reset the column index
 
@@ -104,38 +100,40 @@ function createGrid() {
 }
 
 function startSimulation() {
-    // Create an interval to automate the generations
-    simultInterval = setInterval(() => {
 
-        if (!isCellsActive()) {
-            clearInterval(simultInterval); // If there are no active cells on the grid, clear the setInterval()
-            isSimulationOn = false;
-            startButton.disabled = true;
-            pauseButton.disabled = true;
-            refreshButton.disabled = true;
-            return;
-        }
+    const speedValue = speedElm.value // Update the speedvalue every iteration
 
-        isSimulationOn = true;
+    if (!isCellsActive()) {
         startButton.disabled = true;
-        pauseButton.disabled = false;
+        pauseButton.disabled = true;
+        refreshButton.disabled = true;
+        return; // If there are no active cells on the grid, break out the function()
+    }
 
-        cellMatrix.forEach((rows) => {
-            rows.map((cell) => cell.evolve()) // Make the cells evolve
-        })
-        cellMatrix.forEach((rows) => {
-            rows.map((cell) => cell.changeState()) // Apply their changes afterward
-        })
+    isSimulationOn = true;
+    startButton.disabled = true;
+    pauseButton.disabled = false;
 
-        // Increment and update the counter during each loop iteration
-        counter++;
-        updateCounter(counter);
+    cellsArr.forEach((rows) => {
+        rows.map((cell) => cell.evolve()) // Make the cells evolve
+    })
+    cellsArr.forEach((rows) => {
+        rows.map((cell) => cell.changeState()) // Apply their changes afterward
+    })
 
-    }, 100) // Generate a new generation every 100 ms
+    // Increment and update the counter during each loop iteration
+    counter++;
+    updateCounter(counter);
+
+    // Using setTimeout() for frame generation
+    timeout = setTimeout(() => {
+        startSimulation()
+    }, speedValue)
+
 }
 
 function pauseSimulation() {
-    clearInterval(simultInterval) // Clear the interval that automates generations
+    clearTimeout(timeout) // Clear the timeout in the startSimulation() method
     isSimulationOn = false
     startButton.disabled = false
     pauseButton.disabled = true
@@ -147,10 +145,10 @@ function refreshBoard() {
 
 function isCellsActive() {
     // Check whether at least one cell is alive on the grid
-    const hasActiveCell = Boolean(cellMatrix.flat().reduce((value, cell) => value + cell.state, 0))
+    const hasActiveCell = Boolean(cellsArr.flat().reduce((value, cell) => value + cell.state, 0))
     return hasActiveCell; // Return the boolean variable
 }
 
 function updateCounter(counter) {
-    counterElm.innerText = counter;
-}
+    counterElm.innerText = `Generations : ${counter}`;
+}   
