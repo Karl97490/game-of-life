@@ -39,17 +39,30 @@ cellsArr.forEach((rows) => {
 /******************** EVENT LISTENERS ********************/
 
 // When clicked, start the automatic generation process
-startButton.addEventListener("click", () => {
+startButton.addEventListener("click", (e) => {
     startSimulation();
+    disabledButtons()
 })
 
 // When clicked, pause the simulation
 pauseButton.addEventListener("click", () => {
     pauseSimulation();
+    disabledButtons();
 })
 
 // When clicked, refresh the board
 refreshButton.addEventListener("click", () => {
     refreshBoard();
+    disabledButtons();
 })
 
+patternsBtn.forEach((patternBtn) => {
+    patternBtn.addEventListener("click", (e) => {
+        const patternName = e.srcElement.name
+        counter = 0
+        refreshBoard()
+        updateCounter(counter)
+        generatePatterns(patternName)
+        disabledButtons()
+    })
+})

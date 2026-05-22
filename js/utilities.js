@@ -24,15 +24,7 @@ function createGrid() {
             cellObj.changeState() // Change its current state to its future state
 
             // Toggle the start and refresh buttons when a cell is activated or desactivated
-            if (isCellsActive() && isSimulationOn) {
-                refreshButton.disabled = false;
-            } else if (isCellsActive() && !isSimulationOn) {
-                refreshButton.disabled = false;
-                startButton.disabled = false;
-            } else {
-                startButton.disabled = true;
-                refreshButton.disabled = true;
-            }
+            disabledButtons()
         })
 
         rowArr.push(cellObj)
@@ -56,15 +48,10 @@ function startSimulation() {
 
     if (!isCellsActive()) {
         isSimulationOn = false;
-        startButton.disabled = true;
-        pauseButton.disabled = true;
-        refreshButton.disabled = true;
         return; // If there are no active cells on the grid, break out the function()
     }
 
     isSimulationOn = true;
-    startButton.disabled = true;
-    pauseButton.disabled = false;
 
     cellsArr.forEach((rows) => {
         rows.map((cell) => cell.evolve()) // Make the cells evolve
@@ -81,18 +68,19 @@ function startSimulation() {
     timeout = setTimeout(() => {
         startSimulation()
     }, speedValue)
- 
+
 }
 
 function pauseSimulation() {
     clearTimeout(timeout) // Clear the timeout in the startSimulation() method
     isSimulationOn = false
-    startButton.disabled = false
-    pauseButton.disabled = true
 }
 
 function refreshBoard() {
-    window.location.reload() // Relaod the page
+    cellsArr.flat().forEach((cell) => {
+        cell.futureState = 0
+        cell.changeState()
+    })
 }
 
 function isCellsActive() {
@@ -105,3 +93,65 @@ function updateCounter(counter) {
     counterElm.innerText = `Generations : ${counter}`;
 }
 
+function generatePatterns(patternName) {
+
+    const listPatterns = {
+        "glider": {
+            anchor: anchor = { x: 0, y: 0 },
+            positions: [
+                { x: anchor.x, y: anchor.y + 1 },
+                { x: anchor.x + 1, y: anchor.y + 2 },
+                { x: anchor.x + 2, y: anchor.y },
+                { x: anchor.x + 2, y: anchor.y + 1 },
+                { x: anchor.x + 2, y: anchor.y + 2 }
+            ]
+        },
+        "r-pentomino": {
+            anchor: anchor = { x: totalRows / 2, y: totalCols / 2 },
+            positions: [
+                anchor,
+                { x: anchor.x, y: anchor.y - 1 },
+                { x: anchor.x + 1, y: anchor.y },
+                { x: anchor.x - 1, y: anchor.y },
+                { x: anchor.x - 1, y: anchor.y + 1 }
+            ]
+        },
+        "acorn": {
+            anchor: anchor = { x: totalRows / 2, y: totalCols / 2 },
+            positions: [
+                anchor,
+                { x: anchor.x + 1, y: anchor.y + 1 },
+                { x: anchor.x + 1, y: anchor.y + 2 },
+                { x: anchor.x + 1, y: anchor.y + 3 },
+                { x: anchor.x + 1, y: anchor.y - 2 },
+                { x: anchor.x + 1, y: anchor.y - 3 },
+                { x: anchor.x - 1, y: anchor.y - 2 },
+            ]
+        }
+    }
+
+    const patternObj = listPatterns[patternName.toLowerCase()]
+
+    patternObj.positions.forEach((position) => {
+        const cell = cellsArr[position.x][position.y]
+        cell.futureState = 1
+        cell.changeState()
+    })
+}
+
+
+function disabledButtons() {
+    if (isCellsActive() && isSimulationOn) {
+        startButton.disabled = true
+        pauseButton.disabled = false
+        refreshButton.disabled = false
+    } else if (isCellsActive() && !isSimulationOn) {
+        startButton.disabled = false
+        pauseButton.disabled = true
+        refreshButton.disabled = false
+    } else {
+        startButton.disabled = true
+        pauseButton.disabled = true
+        refreshButton.disabled = true
+    }
+}
