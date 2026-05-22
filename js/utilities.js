@@ -130,7 +130,7 @@ function generatePatterns(patternName) {
         }
     }
 
-    const patternObj = listPatterns[patternName.toLowerCase()]
+    const patternObj = listPatterns[patternName]
 
     patternObj.positions.forEach((position) => {
         const cell = cellsArr[position.x][position.y]

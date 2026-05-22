@@ -39,7 +39,7 @@ cellsArr.forEach((rows) => {
 /******************** EVENT LISTENERS ********************/
 
 // When clicked, start the automatic generation process
-startButton.addEventListener("click", (e) => {
+startButton.addEventListener("click", () => {
     startSimulation();
     disabledButtons()
 })
@@ -58,7 +58,7 @@ refreshButton.addEventListener("click", () => {
 
 patternsBtn.forEach((patternBtn) => {
     patternBtn.addEventListener("click", (e) => {
-        const patternName = e.srcElement.name
+        const patternName = e.srcElement.name.toLowerCase()
         counter = 0
         refreshBoard()
         updateCounter(counter)
