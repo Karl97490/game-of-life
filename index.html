@@ -15,7 +15,9 @@
     <div class="flex-container">
 
         <div class="grid-container">
-            <!-- <div class="cell alive dead"></div> -->
+            <div class="grid">
+                <!-- <div class="cell alive dead"></div> -->
+            </div>
         </div>
 
         <div class="buttons containers">
@@ -34,7 +36,14 @@
             <div class="controls containers">
 
                 <p id="counter"></p>
-                <input id="speed" title="speed" type="range" min="10" max="150" value="80" step="10">
+                <label for="speed">
+                    Speed
+                    <input type="range" title="speed" id="speed" min="10" max="150" value="80" step="10">
+                </label>
+                <label for="scale">
+                    Scale
+                    <input type="range" title="scale" id="scale" min="1" max="1.5" value="1" step="0.1">
+                </label>
                 <output id="value"></output>
 
             </div>

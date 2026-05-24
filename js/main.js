@@ -7,11 +7,12 @@ const pauseButton = document.querySelector(".pause-button")
 const refreshButton = document.querySelector(".refresh-button")
 const counterElm = document.getElementById("counter")
 const speedElm = document.getElementById("speed")
+const scaleElm = document.getElementById("scale")
 const patternsBtn = document.querySelectorAll(".patterns button")
-const gridContainer = document.querySelector(".grid-container")
+const gridElm = document.querySelector(".grid")
 
-const totalCols = 100;
-const totalRows = 100;
+const totalCols = 60;
+const totalRows = 60;
 const totalCells = totalRows * totalCols;
 let isSimulationOn = false;
 let timeout = null;
@@ -66,4 +67,24 @@ patternsBtn.forEach((patternBtn) => {
         generatePatterns(patternName)
         disabledButtons()
     })
+})
+
+scaleElm.addEventListener("input", (e) => {
+    const scaleValue = e.srcElement.value
+    console.log(scaleValue)
+    gridElm.style.transform = `scale(${scaleValue})`;
+})
+
+
+gridElm.addEventListener("wheel", (e) => {
+    let value = Number(scaleElm.value);
+    let step = Number(scaleElm.step);
+    if (e.deltaY < 0) {
+        scaleElm.value = value += step;
+        console.log(scaleElm.value)
+    } else {
+        scaleElm.value = value -= step;
+        console.log(scaleElm.value)
+    }
+    gridElm.style.transform = `scale(${scaleElm.value})`;
 })

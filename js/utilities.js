@@ -6,14 +6,14 @@ function createGrid() {
     let rowIndex = 0
     let colIndex = 0
 
-    gridContainer.style.gridTemplateColumns = `repeat(${totalCols}, 1fr)`;
-    gridContainer.style.gridTemplateRows = `repeat(${totalRows}, 1fr)`;
-
+    gridElm.style.gridTemplateColumns = `repeat(${totalCols}, 1fr)`;
+    gridElm.style.gridTemplateRows = `repeat(${totalRows}, 1fr)`;
+    
     // Create a functional clickable 2D grid with dead and alive cell
     for (let i = 0; i < totalCells; i++) {
         const cellObj = new Cell(rowIndex, colIndex)
 
-        gridContainer.appendChild(cellObj.newCell) // Append each element to the grid container
+        gridElm.appendChild(cellObj.newCell) // Append each element to the grid container
 
         rowArr.push(cellObj)
 

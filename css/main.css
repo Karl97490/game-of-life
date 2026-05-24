@@ -1,7 +1,6 @@
 body {
     background-color: #333;
-    height: 100vh;
-    width: 100vw;
+    /* overflow: hidden; */
 }
 
 
@@ -9,6 +8,7 @@ body,
 h1,
 h2,
 p,
+label,
 input,
 button {
     margin: 0;
@@ -48,16 +48,18 @@ h2 {
     height: 100vh;
 }
 
+.grid-container{
+    order : 2;
+    width: 730px;
+    height: 730px;
+    overflow: hidden;
+}
 
-.grid-container {
+.grid {
     display: grid;
 
-    grid-template-columns: repeat(60, 1fr);
-    grid-template-rows: repeat(60, 1fr);
-
-    width: 720px;
-    height: 720px;
-    order: 2;
+    width: 730px;
+    height: 730px;
 }
 
 
@@ -128,8 +130,6 @@ button.button {
 
 .features .controls {
     gap: 8px;
-    /* width : auto;
-    height: auto; */
     padding: 10px 15px;
     border: 1px solid white;
     border-radius: 15px;
@@ -138,10 +138,13 @@ button.button {
     background-color: rgba(255, 255, 255, 0.189);
 }
 
-.controls #speed {
-    width: 80%;
+.controls input {
+    width: 70%;
 }
 
+/* .controls #speed {
+    width: auto;
+} */
 
 .patterns button {
     width: auto;
