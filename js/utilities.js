@@ -6,26 +6,14 @@ function createGrid() {
     let rowIndex = 0
     let colIndex = 0
 
+    gridContainer.style.gridTemplateColumns = `repeat(${totalCols}, 1fr)`;
+    gridContainer.style.gridTemplateRows = `repeat(${totalRows}, 1fr)`;
+
     // Create a functional clickable 2D grid with dead and alive cell
     for (let i = 0; i < totalCells; i++) {
         const cellObj = new Cell(rowIndex, colIndex)
 
-        cellObj.newCell.addEventListener("click", () => { // Create an event listener for each cell element
-
-            // Reset counter when no cells are active
-            if (!isCellsActive()) {
-                counter = 0;
-                updateCounter(counter)
-            }
-
-            // Check the state of the cell
-            cellObj.futureState = cellObj.state ? 0 : 1 // If alive, switch its state to 0 (dead), if dead switch it to 1 (alive)
-
-            cellObj.changeState() // Change its current state to its future state
-
-            // Toggle the start and refresh buttons when a cell is activated or desactivated
-            disabledButtons()
-        })
+        gridContainer.appendChild(cellObj.newCell) // Append each element to the grid container
 
         rowArr.push(cellObj)
 

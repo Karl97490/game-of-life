@@ -1,20 +1,21 @@
 
 /******************** VARIABLES ********************/
 
-const cellsArr = [] // Create a 2D array that represents the grid
+const cellsArr = [] // 2D array that represents the grid
 const startButton = document.querySelector(".start-button")
 const pauseButton = document.querySelector(".pause-button")
 const refreshButton = document.querySelector(".refresh-button")
 const counterElm = document.getElementById("counter")
 const speedElm = document.getElementById("speed")
 const patternsBtn = document.querySelectorAll(".patterns button")
+const gridContainer = document.querySelector(".grid-container")
 
-const totalCols = 60;
-const totalRows = 60;
-const totalCells = totalRows * totalCols; // For a grid 60x60 (3600 cells)
+const totalCols = 100;
+const totalRows = 100;
+const totalCells = totalRows * totalCols;
 let isSimulationOn = false;
 let timeout = null;
-let counter = 0; // Counts the number of generations
+let counter = 0;
 
 /******************** INITIALISATION ********************/
 

@@ -11,10 +11,25 @@ class Cell {
 
     createCellElm() {
         this.newCell = document.createElement("div") // Create a div element for each case (cell) of the grid
-        const gridContainer = document.querySelector(".grid-container")  // Get the grid container element from the DOM
 
         this.newCell.classList.add("cell", "dead") // Add the 'cell' and 'dead' classes to each div element
-        gridContainer.appendChild(this.newCell) // Append each element to the grid container
+
+        this.newCell.addEventListener("click", () => { // Create an event listener for each cell element
+
+            // Reset counter when no cells are active
+            if (!isCellsActive()) {
+                counter = 0;
+                updateCounter(counter)
+            }
+
+            // Check the state of the cell
+            this.futureState = this.state ? 0 : 1 // If alive, switch its state to 0 (dead), if dead switch it to 1 (alive)
+
+            this.changeState() // Change its current state to its future state
+
+            // Toggle the start and refresh buttons when a cell is activated or desactivated
+            disabledButtons()
+        })
     }
 
 
