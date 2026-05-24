@@ -74,6 +74,8 @@ class Cell {
     }
 
     setNeighbors() {
+        const lastIndexCols = totalCols - 1
+        const lastIndexRows = totalRows - 1
         // Differentiate the cells based on their position in the grid
 
         // For cells in the corners :
@@ -89,7 +91,7 @@ class Cell {
             }
         }
         // Bottom left
-        else if (this.positionX === 59 && this.positionY === 0) {
+        else if (this.positionX === lastIndexRows && this.positionY === 0) {
             if (!this.neighbors.length) {  // Check if array is empty
                 this.neighbors.push(
                     cellsArr[this.positionX][this.positionY + 1], // Right
@@ -99,7 +101,7 @@ class Cell {
             }
         }
         // Top right
-        else if (this.positionX === 0 && this.positionY === 59) {
+        else if (this.positionX === 0 && this.positionY === lastIndexCols) {
             if (!this.neighbors.length) {  // Check if array is empty
                 this.neighbors.push(
                     cellsArr[this.positionX][this.positionY - 1], // Left
@@ -109,7 +111,7 @@ class Cell {
             }
         }
         // Bottom right
-        else if (this.positionX === 59 && this.positionY === 59) {
+        else if (this.positionX === lastIndexRows && this.positionY === lastIndexCols) {
             if (!this.neighbors.length) {  // Check if array is empty
                 this.neighbors.push(
                     cellsArr[this.positionX][this.positionY - 1], // Left
@@ -121,7 +123,7 @@ class Cell {
 
         // For cells on the borders (excluding the corners) :
         // Top border
-        else if (this.positionX === 0 && this.positionY >= 1 && this.positionY <= 58) {
+        else if (this.positionX === 0 && this.positionY >= 1 && this.positionY <= lastIndexCols - 1) {
             if (!this.neighbors.length) {  // Check if array is empty
                 this.neighbors.push(
                     cellsArr[this.positionX][this.positionY - 1], // Left
@@ -133,7 +135,7 @@ class Cell {
             }
         }
         // Right border
-        else if (this.positionX >= 1 && this.positionX <= 58 && this.positionY === 59) {
+        else if (this.positionX >= 1 && this.positionX <= lastIndexRows - 1 && this.positionY === lastIndexCols) {
             if (!this.neighbors.length) {  // Check if array is empty
                 this.neighbors.push(
                     cellsArr[this.positionX - 1][this.positionY], // Above
@@ -145,7 +147,7 @@ class Cell {
             }
         }
         // Bottom border
-        else if (this.positionX === 59 && this.positionY >= 1 && this.positionY <= 58) {
+        else if (this.positionX === lastIndexRows && this.positionY >= 1 && this.positionY <= lastIndexCols - 1) {
             if (!this.neighbors.length) {  // Check if array is empty
                 this.neighbors.push(
                     cellsArr[this.positionX][this.positionY - 1], // Left
@@ -157,7 +159,7 @@ class Cell {
             }
         }
         // Left border
-        else if (this.positionX >= 1 && this.positionX <= 58 && this.positionY === 0) {
+        else if (this.positionX >= 1 && this.positionX <= lastIndexRows - 1 && this.positionY === 0) {
             if (!this.neighbors.length) {  // Check if array is empty
                 this.neighbors.push(
                     cellsArr[this.positionX - 1][this.positionY], // Above

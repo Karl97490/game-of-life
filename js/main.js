@@ -11,15 +11,14 @@ const scaleElm = document.getElementById("scale")
 const patternsBtn = document.querySelectorAll(".patterns button")
 const gridElm = document.querySelector(".grid")
 
-const totalCols = 60;
-const totalRows = 60;
+const totalCols = 160;
+const totalRows = 160;
 const totalCells = totalRows * totalCols;
 let isSimulationOn = false;
 let timeout = null;
 let counter = 0;
 
 /******************** INITIALISATION ********************/
-
 
 
 // Invoke the createGrid() method
