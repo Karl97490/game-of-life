@@ -8,18 +8,19 @@ const refreshButton = document.querySelector(".refresh-button")
 const counterElm = document.getElementById("counter")
 const speedElm = document.getElementById("speed")
 const scaleElm = document.getElementById("scale")
-const patternsBtn = document.querySelectorAll(".patterns button")
+const patternsBtnsContainer = document.querySelector(".patterns-btns")
+const patternsBtn = document.querySelectorAll(".patterns-btns button")
+const toggleBtn = document.querySelector(".toggle-btn")
 const gridElm = document.querySelector(".grid")
 
-const totalCols = 160;
-const totalRows = 160;
+const totalCols = 240;
+const totalRows = 120;
 const totalCells = totalRows * totalCols;
 let isSimulationOn = false;
 let timeout = null;
 let counter = 0;
 
 /******************** INITIALISATION ********************/
-
 
 // Invoke the createGrid() method
 createGrid();
@@ -86,4 +87,10 @@ gridElm.addEventListener("wheel", (e) => {
         console.log(scaleElm.value)
     }
     gridElm.style.transform = `scale(${scaleElm.value})`;
+})
+
+
+toggleBtn.addEventListener("click", (e) => {
+    patternsBtnsContainer.classList.toggle("close")
+    toggleBtn.classList.toggle("rotate")
 })

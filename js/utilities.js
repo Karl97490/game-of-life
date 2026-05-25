@@ -8,7 +8,7 @@ function createGrid() {
 
     gridElm.style.gridTemplateColumns = `repeat(${totalCols}, 1fr)`;
     gridElm.style.gridTemplateRows = `repeat(${totalRows}, 1fr)`;
-    
+
     // Create a functional clickable 2D grid with dead and alive cell
     for (let i = 0; i < totalCells; i++) {
         const cellObj = new Cell(rowIndex, colIndex)
@@ -32,7 +32,8 @@ function createGrid() {
 
 function startSimulation() {
 
-    const speedValue = speedElm.value // Update the speedvalue every iteration
+    const rangeValue = speedElm.value
+    const speed = 160 - rangeValue
 
     if (!isCellsActive()) {
         isSimulationOn = false;
@@ -55,7 +56,7 @@ function startSimulation() {
     // Using setTimeout() for frame generation
     timeout = setTimeout(() => {
         startSimulation()
-    }, speedValue)
+    }, speed)
 
 }
 

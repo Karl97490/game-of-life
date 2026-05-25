@@ -10,56 +10,53 @@
 
 <body>
 
-    <h1 class="title">Game Of Life</h1>
+    <!-- <h1 class="title">Game Of Life</h1> -->
 
-    <div class="flex-container">
+    <div class="grid-container">
 
-        <div class="grid-container">
-            <div class="grid">
-                <!-- <div class="cell alive dead"></div> -->
-            </div>
-        </div>
-
-        <div class="buttons containers">
-
-            <!-- Start button to launch simulation -->
-            <button class="start-button button">Start</button>
-            <!-- Pause the simulation -->
-            <button class="pause-button button">Pause</button>
-            <!-- Refresh the board -->
-            <button class="refresh-button button">Refresh</button>
-
-        </div>
-
-        <div class="features containers">
-
-            <div class="controls containers">
-
-                <p id="counter"></p>
-                <label for="speed">
-                    Speed
-                    <input type="range" title="speed" id="speed" min="10" max="150" value="80" step="10">
-                </label>
-                <label for="scale">
-                    Scale
-                    <input type="range" title="scale" id="scale" min="1" max="2.5" value="1" step="0.1">
-                </label>
-                <output id="value"></output>
-
-            </div>
-
-            <div class="patterns containers">
-
-                <h2>Patterns</h2>
-                <button class="button" name="Glider">Glider</button>
-                <button class="button" name="R-pentomino">R-pentomino</button>
-                <button class="button" name="Acorn">Acorn</button>
-
-            </div>
-
+        <div class="grid">
+            <!-- <div class="cell alive dead"></div> -->
         </div>
 
     </div>
+
+    <div class="buttons containers">
+
+        <!-- Pause the simulation -->
+        <button class="pause-button button">❚❚ Pause</button>
+        <!-- Start button to launch simulation -->
+        <button class="start-button button">▶ Start</button>
+        <!-- Refresh the board -->
+        <button class="refresh-button button">⟲ Refresh</button>
+
+    </div>
+
+    <div class="controls containers">
+
+        <p id="counter"></p>
+        <label for="speed">
+            ⚡️
+            <input type="range" title="speed" id="speed" min="10" max="150" value="80" step="10">
+        </label>
+        <label for="scale">
+            🔍
+            <input type="range" title="scale" id="scale" min="1" max="2.5" value="1" step="0.1">
+        </label>
+        <output id="value"></output>
+
+    </div>
+
+    <aside class="patterns containers">
+
+        <div class="patterns-btns">
+            <h2>Patterns</h2>
+            <button class="button" name="Glider">Glider</button>
+            <button class="button" name="R-pentomino">R-pentomino</button>
+            <button class="button" name="Acorn">Acorn</button>
+        </div>
+        <button class="toggle-btn">»</button>
+
+    </aside>
 
     <script src="./js/Cell.js"></script>
     <script src="./js/utilities.js"></script>
