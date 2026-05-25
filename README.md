@@ -27,9 +27,10 @@ This project allows users to:
 
     - Create custom patterns
     - Start / Pause the simulation
-    - Reset the board
+    - Refresh the board
     - Observe how cells evolve over time
     - Control the simulation speed
+    - Scalable and zoomable grid
 
 <br>
 
@@ -71,7 +72,6 @@ All cells update simultaneously.
 - 💾 Pattern saving/loading system
 - 📱 Improved responsive design
 - 🖼️ Pattern gallery
-- 🔍 Scalable and zoomable grid
 - ♾️ Infinite grid support
 - ⏪ Save/load simulation generations
 
